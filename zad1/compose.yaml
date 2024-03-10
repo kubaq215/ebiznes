@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  my_service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: my_container
+    environment:
+      - TZ=Europe/Warsaw
