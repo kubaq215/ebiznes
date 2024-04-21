@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend-zad4_go-echo-app
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./backend-zad4_go-echo-app/myapp.db:/myapp.db # Mount the host directory to a directory in the container
+    command: ["/app"] # Use the correct binary path from the Dockerfile
+
+  frontend:
+    build: ./frontend-zad5_react-app
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
