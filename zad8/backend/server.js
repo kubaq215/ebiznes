@@ -1,7 +1,8 @@
-const app = require('./app');
 const mongoose = require('mongoose');
+require('./models/User');
+const app = require('./app');
 const keys = require('./config/keys');
 
-mongoose.connect('mongodb://localhost:27017/oauth_demo', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(keys.mongoURI)
   .then(() => app.listen(5000, () => console.log('Server running on port 5000')))
   .catch(err => console.error(err));
