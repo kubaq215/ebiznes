@@ -17,7 +17,7 @@ app.use(passport.session());
 
 // Add CORS middleware
 const corsOptions = {
-  origin: 'http://localhost:3000', // frontend URL
+  origin: '*', // frontend URL
   credentials: true,
 };
 app.use(cors(corsOptions));

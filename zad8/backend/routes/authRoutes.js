@@ -8,8 +8,9 @@ const router = express.Router();
 router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 
 router.get('/google/callback', passport.authenticate('google'), (req, res) => {
-  const token = jwt.sign({ userId: req.user.id }, keys.jwtSecret, { expiresIn: '1h' });
-  res.redirect(`http://localhost:3000?token=${token}`);
+  console.log(req.user);
+  const token = jwt.sign({ userId: req.user.id }, keys.jwtSecret, { expiresIn: '300s' });
+  res.redirect(`http://172-104-249-16.ip.linodeusercontent.com?token=${token}`);
 });
 
 module.exports = router;
