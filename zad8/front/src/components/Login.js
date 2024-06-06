@@ -10,7 +10,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://172.104.249.16:5000/login', {
+      const response = await axios.post('http://172-104-249-16.ip.linodeusercontent.com:5000/login', {
         email,
         password,
       });

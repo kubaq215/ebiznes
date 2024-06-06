@@ -11,7 +11,7 @@ const Register = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://172.104.249.16:5000/register', {
+      const response = await axios.post('http://172-104-249-16.ip.linodeusercontent.com:5000/register', {
         name,
         email,
         password,

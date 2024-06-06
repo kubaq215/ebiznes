@@ -4,7 +4,7 @@ module.exports = function(app) {
   app.use(
     '/auth',
     createProxyMiddleware({
-      target: 'http://localhost:5000',
+      target: 'http://172-104-249-16.ip.linodeusercontent.com:5000',
       changeOrigin: true,
     })
   );
