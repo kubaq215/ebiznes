@@ -1,0 +1,20 @@
+# Routes for Products
+GET        /products                controllers.ProductController.getAllProducts
+GET        /products/:id            controllers.ProductController.getProductById(id: Int)
+POST       /products                controllers.ProductController.createProduct
+PUT        /products/:id            controllers.ProductController.updateProduct(id: Int)
+DELETE     /products/:id            controllers.ProductController.deleteProduct(id: Int)
+
+# Routes for Categories
+GET        /categories              controllers.CategoryController.getAllCategories
+GET        /categories/:id          controllers.CategoryController.getCategoryById(id: Int)
+POST       /categories              controllers.CategoryController.createCategory
+PUT        /categories/:id          controllers.CategoryController.updateCategory(id: Int)
+DELETE     /categories/:id          controllers.CategoryController.deleteCategory(id: Int)
+
+# Routes for Cart Items
+GET        /cart                    controllers.CartController.getAllCartItems
+GET        /cart/:id                controllers.CartController.getCartItemById(id: Int)
+POST       /cart                    controllers.CartController.addCartItem
+PUT        /cart/:id                controllers.CartController.updateCartItem(id: Int)
+DELETE     /cart/:id                controllers.CartController.deleteCartItem(id: Int)
