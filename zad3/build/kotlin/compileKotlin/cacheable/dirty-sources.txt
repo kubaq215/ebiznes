@@ -1,2 +1,0 @@
-/home/kuba/ebiznes/zad3/src/main/kotlin/DiscordBot.kt
-/home/kuba/ebiznes/zad3/src/main/kotlin/Main.kt
