@@ -1,0 +1,17 @@
+[
+    {
+      "ID": 1,
+      "Nazwa": "Product 1",
+      "Cena": 10.0,
+      "Opis": "Description 1",
+      "KategoriaID": 1
+    },
+    {
+      "ID": 2,
+      "Nazwa": "Product 2",
+      "Cena": 20.0,
+      "Opis": "Description 2",
+      "KategoriaID": 2
+    }
+  ]
+  
