@@ -1,6 +1,6 @@
 # Use the official Golang image to create a build artifact.
 # This is based on Debian and sets the GOPATH to /go.
-FROM golang:bookworm as builder
+FROM golang:bookworm AS builder
 
 # Copy the local package files to the container's workspace.
 WORKDIR /backend
@@ -16,7 +16,7 @@ RUN go build -o /bin/app
 
 # Use a Docker multi-stage build to create a lean production image.
 # https://docs.docker.com/develop/develop-images/multistage-build/
-FROM gcr.io/distroless/base-debian12
+FROM gcr.io/distroless/base-debian12:latest
 
 COPY --from=builder /bin/app /
 

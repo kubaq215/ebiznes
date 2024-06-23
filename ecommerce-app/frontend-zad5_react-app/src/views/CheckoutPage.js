@@ -9,7 +9,7 @@ function CheckoutPage() {
     .find(row => row.startsWith('koszykID='))
     ?.split('=')[1];
 
-  const [koszykID, setKoszykID] = useState(koszykCookie || 1);
+  const [koszykID] = useState(koszykCookie || 1);
 
   return (
     <div className="checkout">

@@ -6,14 +6,14 @@ describe('Axios Interceptors Tests', () => {
     cy.visit('/');
   });
 
-  // it('request interceptor - add token', () => {
-  //   cy.intercept('GET', '/some-endpoint', req => {
-  //     expect(req.headers).to.have.property('Authorization', 'Bearer testToken');
-  //     req.reply({ statusCode: 200 });
-  //   }).as('getSomeEndpoint');
-  //   cy.request('/some-endpoint');
-  //   cy.wait('@getSomeEndpoint');
-  // });
+  it('request interceptor - add token', () => {
+    cy.intercept('GET', '/some-endpoint', req => {
+      expect(req.headers).to.have.property('Authorization', 'Bearer testToken');
+      req.reply({ statusCode: 200 });
+    }).as('getSomeEndpoint');
+    cy.request('/some-endpoint');
+    cy.wait('@getSomeEndpoint');
+  });
 
   it('response interceptor - handle errors', () => {
     cy.intercept('GET', '/some-endpoint', { statusCode: 500, body: 'Test Error' }).as('getSomeEndpointError');

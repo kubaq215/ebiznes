@@ -17,6 +17,12 @@ import (
     "echo-app/internal/model"
 )
 
+var produkty_path = "/produkty"
+var koszyk_path = "/koszyk/"
+var test_produkt = "Test Produkt"
+var test_opis = "Test Opis"
+
+
 var produktJSON = `{"Nazwa":"Test Produkt","Opis":"Test Opis","Cena":10.0,"KategoriaID":1}`
 
 func setupTestDB() *gorm.DB {
@@ -35,7 +41,7 @@ func TestCreateProdukt(t *testing.T) {
     e := setupEcho()
     handler := handler.NewProduktHandler(db)
 
-    req := httptest.NewRequest(http.MethodPost, "/produkty", bytes.NewBufferString(produktJSON))
+    req := httptest.NewRequest(http.MethodPost, produkty_path, bytes.NewBufferString(produktJSON))
     req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
     rec := httptest.NewRecorder()
     c := e.NewContext(req, rec)
@@ -50,7 +56,7 @@ func TestCreateProduktInvalidData(t *testing.T) {
     handler := handler.NewProduktHandler(db)
 
     invalidJSON := `{"Nazwa":"", "Opis":"Test Opis", "Cena":10.0, "KategoriaID":1}`
-    req := httptest.NewRequest(http.MethodPost, "/produkty", bytes.NewBufferString(invalidJSON))
+    req := httptest.NewRequest(http.MethodPost, produkty_path, bytes.NewBufferString(invalidJSON))
     req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
     rec := httptest.NewRecorder()
     c := e.NewContext(req, rec)
@@ -64,7 +70,7 @@ func TestGetProduktyNoProducts(t *testing.T) {
     e := setupEcho()
     handler := handler.NewProduktHandler(db)
 
-    req := httptest.NewRequest(http.MethodGet, "/produkty", nil)
+    req := httptest.NewRequest(http.MethodGet, produkty_path, nil)
     rec := httptest.NewRecorder()
     c := e.NewContext(req, rec)
 
@@ -77,7 +83,7 @@ func TestUpdateProduktValidIDAndData(t *testing.T) {
     e := setupEcho()
     handler := handler.NewProduktHandler(db)
 
-    produkt := model.Produkt{Nazwa: "Test Produkt", Opis: "Test Opis", Cena: 10.0, KategoriaID: 1}
+    produkt := model.Produkt{Nazwa: test_produkt, Opis: test_opis, Cena: 10.0, KategoriaID: 1}
     db.Create(&produkt)
 
     updateJSON := `{"Nazwa":"Updated Produkt","Opis":"Updated Opis","Cena":15.0,"KategoriaID":1}`
@@ -114,7 +120,7 @@ func TestDeleteProduktValidID(t *testing.T) {
     e := setupEcho()
     handler := handler.NewProduktHandler(db)
 
-    produkt := model.Produkt{Nazwa: "Test Produkt", Opis: "Test Opis", Cena: 10.0, KategoriaID: 1}
+    produkt := model.Produkt{Nazwa: test_produkt, Opis: test_opis, Cena: 10.0, KategoriaID: 1}
     db.Create(&produkt)
 
     req := httptest.NewRequest(http.MethodDelete, "/produkty/"+strconv.Itoa(int(produkt.ID)), nil)
@@ -163,7 +169,7 @@ func TestRemoveKoszykValidID(t *testing.T) {
     koszyk := model.Koszyk{}
     db.Create(&koszyk)
 
-    req := httptest.NewRequest(http.MethodDelete, "/koszyk/"+strconv.Itoa(int(koszyk.ID)), nil)
+    req := httptest.NewRequest(http.MethodDelete, koszyk_path+strconv.Itoa(int(koszyk.ID)), nil)
     rec := httptest.NewRecorder()
     c := e.NewContext(req, rec)
     c.SetParamNames("id")
@@ -195,10 +201,10 @@ func TestAddItemValidCartAndProductIDs(t *testing.T) {
 
     koszyk := model.Koszyk{}
     db.Create(&koszyk)
-    produkt := model.Produkt{Nazwa: "Test Produkt", Opis: "Test Opis", Cena: 10.0, KategoriaID: 1}
+    produkt := model.Produkt{Nazwa: test_produkt, Opis: test_opis, Cena: 10.0, KategoriaID: 1}
     db.Create(&produkt)
 
-    req := httptest.NewRequest(http.MethodPost, "/koszyk/"+strconv.Itoa(int(koszyk.ID))+"/"+strconv.Itoa(int(produkt.ID)), nil)
+    req := httptest.NewRequest(http.MethodPost, koszyk_path+strconv.Itoa(int(koszyk.ID))+"/"+strconv.Itoa(int(produkt.ID)), nil)
     rec := httptest.NewRecorder()
     c := e.NewContext(req, rec)
     c.SetParamNames("id", "produkt_id")
@@ -213,7 +219,7 @@ func TestAddItemInvalidCartID(t *testing.T) {
     e := setupEcho()
     handler := handler.NewKoszykHandler(db)
 
-    produkt := model.Produkt{Nazwa: "Test Produkt", Opis: "Test Opis", Cena: 10.0, KategoriaID: 1}
+    produkt := model.Produkt{Nazwa: test_produkt, Opis: test_opis, Cena: 10.0, KategoriaID: 1}
     db.Create(&produkt)
 
     req := httptest.NewRequest(http.MethodPost, "/koszyk/999/"+strconv.Itoa(int(produkt.ID)), nil)
@@ -234,7 +240,7 @@ func TestAddItemInvalidProductID(t *testing.T) {
     koszyk := model.Koszyk{}
     db.Create(&koszyk)
 
-    req := httptest.NewRequest(http.MethodPost, "/koszyk/"+strconv.Itoa(int(koszyk.ID))+"/999", nil)
+    req := httptest.NewRequest(http.MethodPost, koszyk_path+strconv.Itoa(int(koszyk.ID))+"/999", nil)
     rec := httptest.NewRecorder()
     c := e.NewContext(req, rec)
     c.SetParamNames("id", "produkt_id")
@@ -252,7 +258,7 @@ func TestGetKoszykValidID(t *testing.T) {
     koszyk := model.Koszyk{}
     db.Create(&koszyk)
 
-    req := httptest.NewRequest(http.MethodGet, "/koszyk/"+strconv.Itoa(int(koszyk.ID)), nil)
+    req := httptest.NewRequest(http.MethodGet, koszyk_path+strconv.Itoa(int(koszyk.ID)), nil)
     rec := httptest.NewRecorder()
     c := e.NewContext(req, rec)
     c.SetParamNames("id")
@@ -284,11 +290,11 @@ func TestRemoveItemValidIDs(t *testing.T) {
 
     koszyk := model.Koszyk{}
     db.Create(&koszyk)
-    produkt := model.Produkt{Nazwa: "Test Produkt", Opis: "Test Opis", Cena: 10.0, KategoriaID: 1}
+    produkt := model.Produkt{Nazwa: test_produkt, Opis: test_opis, Cena: 10.0, KategoriaID: 1}
     db.Create(&produkt)
     db.Model(&koszyk).Association("Produkty").Append(&produkt)
 
-    req := httptest.NewRequest(http.MethodDelete, "/koszyk/"+strconv.Itoa(int(koszyk.ID))+"/"+strconv.Itoa(int(produkt.ID)), nil)
+    req := httptest.NewRequest(http.MethodDelete, koszyk_path+strconv.Itoa(int(koszyk.ID))+"/"+strconv.Itoa(int(produkt.ID)), nil)
     rec := httptest.NewRecorder()
     c := e.NewContext(req, rec)
     c.SetParamNames("id", "produkt_id")
@@ -303,7 +309,7 @@ func TestRemoveItemInvalidCartID(t *testing.T) {
     e := setupEcho()
     handler := handler.NewKoszykHandler(db)
 
-    produkt := model.Produkt{Nazwa: "Test Produkt", Opis: "Test Opis", Cena: 10.0, KategoriaID: 1}
+    produkt := model.Produkt{Nazwa: test_produkt, Opis: test_opis, Cena: 10.0, KategoriaID: 1}
     db.Create(&produkt)
 
     req := httptest.NewRequest(http.MethodDelete, "/koszyk/999/"+strconv.Itoa(int(produkt.ID)), nil)
@@ -324,7 +330,7 @@ func TestRemoveItemInvalidProductID(t *testing.T) {
     koszyk := model.Koszyk{}
     db.Create(&koszyk)
 
-    req := httptest.NewRequest(http.MethodDelete, "/koszyk/"+strconv.Itoa(int(koszyk.ID))+"/999", nil)
+    req := httptest.NewRequest(http.MethodDelete, koszyk_path+strconv.Itoa(int(koszyk.ID))+"/999", nil)
     rec := httptest.NewRecorder()
     c := e.NewContext(req, rec)
     c.SetParamNames("id", "produkt_id")

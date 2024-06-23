@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types'; // Import PropTypes for props validation
 import axiosInstance from '../api/axios'; // Import the customized axios instance
 
-function Koszyk({koszykID}) {
+function Koszyk({ koszykID }) {
   const [cartItems, setCartItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
 
@@ -9,7 +10,7 @@ function Koszyk({koszykID}) {
   useEffect(() => {
     const fetchCartItems = async () => {
       try {
-        const response = await axiosInstance.get(`/koszyk/${koszykID}`); // Replace '12' with dynamic cart ID if necessary
+        const response = await axiosInstance.get(`/koszyk/${koszykID}`);
         setCartItems(response.data);
         calculateTotal(response.data);
       } catch (error) {
@@ -47,5 +48,10 @@ function Koszyk({koszykID}) {
     </div>
   );
 }
+
+// Define prop types
+Koszyk.propTypes = {
+  koszykID: PropTypes.number.isRequired,
+};
 
 export default Koszyk;

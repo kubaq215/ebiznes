@@ -10,6 +10,8 @@ import (
     "echo-app/internal/model"
 )
 
+var koszyk_not_found = "Koszyk nie znaleziony"
+
 type KoszykHandler struct {
     DB *gorm.DB
 }
@@ -51,7 +53,7 @@ func (h *KoszykHandler) AddItem(c echo.Context) error {
 
     koszyk := &model.Koszyk{}
     if err := h.DB.Preload("Produkty").First(koszyk, koszykID).Error; err != nil {
-        return c.JSON(http.StatusNotFound, "Koszyk nie znaleziony")
+        return c.JSON(http.StatusNotFound, koszyk_not_found)
     }
 
     produkt := &model.Produkt{}
@@ -74,7 +76,7 @@ func (h *KoszykHandler) GetKoszyk(c echo.Context) error {
 
     koszyk := &model.Koszyk{}
     if err := h.DB.Preload("Produkty").First(koszyk, koszykID).Error; err != nil {
-        return c.JSON(http.StatusNotFound, "Koszyk nie znaleziony")
+        return c.JSON(http.StatusNotFound, koszyk_not_found)
     }
 
     return c.JSON(http.StatusOK, koszyk.Produkty)
@@ -88,7 +90,7 @@ func (h *KoszykHandler) RemoveItem(c echo.Context) error {
     // Wyszukiwanie koszyka
     koszyk := &model.Koszyk{}
     if err := h.DB.First(koszyk, koszykID).Error; err != nil {
-        return c.JSON(http.StatusNotFound, "Koszyk nie znaleziony")
+        return c.JSON(http.StatusNotFound, koszyk_not_found)
     }
 
     // Wyszukiwanie produktu, który ma zostać usunięty
