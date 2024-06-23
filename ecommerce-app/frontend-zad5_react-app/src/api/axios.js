@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Create an Axios instance
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:8080/', // Base URL is taken from environment variables
+  baseURL: 'http://super-api-na-ebiznes.azurewebsites.net/', // Base URL is taken from environment variables
   headers: {
     'Content-Type': 'application/json'
   }

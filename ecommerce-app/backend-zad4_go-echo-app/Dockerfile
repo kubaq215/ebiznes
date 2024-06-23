@@ -18,10 +18,17 @@ RUN go build -o /bin/app
 # https://docs.docker.com/develop/develop-images/multistage-build/
 FROM gcr.io/distroless/base-debian12:latest
 
+# Install Nginx
+RUN apt-get update && apt-get install -y nginx && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Copy the Nginx configuration file
+COPY configs/nginx.conf /etc/nginx/nginx.conf
+
+# Copy the built Go application
 COPY --from=builder /bin/app /
 
-# Run the outyet command by default when the container starts.
-ENTRYPOINT ["/app"]
+# Expose port 80
+EXPOSE 80
 
-# Document that the service listens on port 8080.
-EXPOSE 8080
+# Start Nginx and the Go application
+CMD ["sh", "-c", "nginx && /app"]
