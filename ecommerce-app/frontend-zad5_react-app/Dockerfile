@@ -26,7 +26,7 @@ FROM nginx:stable
 COPY --from=build /frontend/build /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/nginx.conf
 # Document that the service listens on port 80.
-EXPOSE 443
+EXPOSE 80
 
 # Run nginx with global directives and daemon off
 ENTRYPOINT ["nginx", "-g", "daemon off;"]

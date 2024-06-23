@@ -28,10 +28,13 @@ COPY configs/nginx.conf /etc/nginx/nginx.conf
 # Copy the built Go application
 COPY --from=builder /bin/app /
 COPY myapp.db /
+COPY start.sh /
+
+RUN chmod +x /start.sh
 # Expose port 80 here
-EXPOSE 443
+EXPOSE 80
 
 # Start Nginx and the Go application
-# CMD ["sh", "-c", "nginx && /app"]
+# CMD ["/app", "&&", "nginx", "-g", "daemon off"]
 
-ENTRYPOINT [ "nginx", "-g", "daemon off;", "/app" ]
+ENTRYPOINT [ "./start.sh" ]
