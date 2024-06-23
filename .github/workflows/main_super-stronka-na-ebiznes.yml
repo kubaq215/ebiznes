@@ -29,7 +29,7 @@ jobs:
       uses: docker/build-push-action@v3
       with:
         push: true
-        tags: index.docker.io/${{ secrets.AzureAppService_ContainerUsername_e140c0d08beb40339210046ea6a9650e }}/kubaq215/ecommerce-app-frontend:${{ github.sha }}
+        tags: index.docker.io/kubaq215/ecommerce-app-frontend:latest
         file: ./ecommerce-app/frontend-zad5_react-app/Dockerfile
 
   deploy:
@@ -47,4 +47,4 @@ jobs:
         app-name: 'super-stronka-na-ebiznes'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_581aa364e2314bb6bdbc89e7e54ff1d6 }}
-        images: 'index.docker.io/${{ secrets.AzureAppService_ContainerUsername_e140c0d08beb40339210046ea6a9650e }}/kubaq215/ecommerce-app-frontend:${{ github.sha }}'
+        images: 'index.docker.io/kubaq215/ecommerce-app-frontend:latest'
