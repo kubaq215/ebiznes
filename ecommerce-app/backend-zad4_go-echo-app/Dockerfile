@@ -29,7 +29,7 @@ COPY configs/nginx.conf /etc/nginx/nginx.conf
 COPY --from=builder /bin/app /
 COPY myapp.db /
 # Expose port 80 here
-EXPOSE 80
+EXPOSE 443
 
 # Start Nginx and the Go application
 # CMD ["sh", "-c", "nginx && /app"]

@@ -1,6 +1,6 @@
 # Use the official lightweight Node.js 14 image.
 # https://hub.docker.com/_/node
-FROM node:14-slim AS build
+FROM node:20.15 AS build
 
 # Create and change to the app directory.
 WORKDIR /frontend
@@ -26,7 +26,7 @@ FROM nginx:stable
 COPY --from=build /frontend/build /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/nginx.conf
 # Document that the service listens on port 80.
-EXPOSE 80
+EXPOSE 443
 
 # Run nginx with global directives and daemon off
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
