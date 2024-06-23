@@ -24,7 +24,7 @@ FROM nginx:stable
 
 # Copy the build output to replace the default nginx contents.
 COPY --from=build /frontend/build /usr/share/nginx/html
-
+COPY nginx.conf /etc/nginx/nginx.conf
 # Document that the service listens on port 80.
 EXPOSE 80
 
