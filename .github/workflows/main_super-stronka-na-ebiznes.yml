@@ -30,7 +30,7 @@ jobs:
       with:
         push: true
         tags: index.docker.io/kubaq215/ecommerce-app-frontend:latest
-        file: ./ecommerce-app/frontend-zad5_react-app/Dockerfile
+        context: ./ecommerce-app/frontend-zad5_react-app/
 
   deploy:
     runs-on: ubuntu-latest
