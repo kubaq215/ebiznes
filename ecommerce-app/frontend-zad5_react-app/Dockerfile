@@ -1,6 +1,6 @@
 # Use the official lightweight Node.js 14 image.
 # https://hub.docker.com/_/node
-FROM node:20.15 AS build
+FROM node:iron-slim AS build
 
 # Create and change to the app directory.
 WORKDIR /frontend

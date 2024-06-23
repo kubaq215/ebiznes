@@ -19,7 +19,7 @@ func main() {
 
     // CORS middleware setup to allow requests from the React frontend
     e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
-        AllowOrigins: []string{"http://super-stronka-na-ebiznes.azurewebsites.net"}, // URL of the React app
+        AllowOrigins: []string{"http://super-stronka-na-ebiznes.azurewebsites.net", "*"}, // URL of the React app and all origins
         AllowMethods: []string{echo.GET, echo.PUT, echo.POST, echo.DELETE},
         AllowHeaders: []string{"Content-Type", "Authorization"},
     }))
