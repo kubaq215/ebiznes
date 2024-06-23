@@ -8,7 +8,7 @@ on:
     branches:
       - main
     paths:
-      - 'ecommerce-app/**'
+      - 'ecommerce-app/frontend-zad5_react-app/**'
   workflow_dispatch:
 
 jobs:

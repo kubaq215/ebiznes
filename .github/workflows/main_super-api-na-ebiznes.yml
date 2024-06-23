@@ -8,7 +8,7 @@ on:
     branches:
       - main
     paths:
-      - 'ecommerce-app/**'
+      - 'ecommerce-app/backend-zad4_go-echo-app/**'
   workflow_dispatch:
 
 jobs:
@@ -31,7 +31,7 @@ jobs:
       uses: docker/build-push-action@v3
       with:
         push: true
-        tags: index.docker.io/kubaq215/ecommerce-app-frontend:latest
+        tags: index.docker.io/kubaq215/ecommerce-app-backend:latest
         context: ./ecommerce-app/backend-zad4_go-echo-app/
 
   deploy:
@@ -49,4 +49,4 @@ jobs:
         app-name: 'super-api-na-ebiznes'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_8a699abc9d5744ffb91d83d37957e85a }}
-        images: 'index.docker.io/kubaq215/ecommerce-app-frontend:latest'
+        images: 'index.docker.io/kubaq215/ecommerce-app-backend:latest'
