@@ -27,7 +27,7 @@ COPY configs/nginx.conf /etc/nginx/nginx.conf
 
 # Copy the built Go application
 COPY --from=builder /bin/app /
-
+COPY myapp.db /
 # Expose port 80
 EXPOSE 80
 
