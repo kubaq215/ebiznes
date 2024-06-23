@@ -16,10 +16,11 @@ RUN go build -o /bin/app
 
 # Use a Docker multi-stage build to create a lean production image.
 # Use Alpine as the base image.
-FROM alpine:latest
+FROM debian:stable-slim
 
 # Install Nginx
-RUN apk add --no-cache nginx
+RUN apt-get update && apt-get install -y nginx && apt-get clean && rm -rf /var/lib/apt/lists/*
+
 
 # Copy the Nginx configuration file
 COPY configs/nginx.conf /etc/nginx/nginx.conf
