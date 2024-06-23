@@ -7,6 +7,8 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'ecommerce-app/**'
   workflow_dispatch:
 
 jobs:
@@ -19,19 +21,18 @@ jobs:
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v2
 
-    - name: Log in to registry
-      uses: docker/login-action@v2
+    - name: Login to Docker Hub
+      uses: docker/login-action@v3
       with:
-        registry: https://index.docker.io/v1/
-        username: ${{ secrets.AzureAppService_ContainerUsername_9ca6bf167782447cb93a86b7244cb409 }}
-        password: ${{ secrets.AzureAppService_ContainerPassword_82d1a4fea5c34c7b86a2d525dc1fa09d }}
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
 
     - name: Build and push container image to registry
       uses: docker/build-push-action@v3
       with:
         push: true
-        tags: index.docker.io/${{ secrets.AzureAppService_ContainerUsername_9ca6bf167782447cb93a86b7244cb409 }}/kubaq215/ecommerce-app-backend:${{ github.sha }}
-        file: ./Dockerfile
+        tags: index.docker.io/kubaq215/ecommerce-app-frontend:latest
+        context: ./ecommerce-app/backend-zad4_go-echo-app/
 
   deploy:
     runs-on: ubuntu-latest
@@ -48,4 +49,4 @@ jobs:
         app-name: 'super-api-na-ebiznes'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_8a699abc9d5744ffb91d83d37957e85a }}
-        images: 'index.docker.io/${{ secrets.AzureAppService_ContainerUsername_9ca6bf167782447cb93a86b7244cb409 }}/kubaq215/ecommerce-app-backend:${{ github.sha }}'
+        images: 'index.docker.io/kubaq215/ecommerce-app-frontend:latest'
