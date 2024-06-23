@@ -31,7 +31,7 @@ jobs:
       with:
         push: true
         tags: index.docker.io/${{ secrets.AzureAppService_ContainerUsername_e140c0d08beb40339210046ea6a9650e }}/kubaq215/ecommerce-app-frontend:${{ github.sha }}
-        file: ./Dockerfile
+        file: ./ecommerce-app/frontend-zad5_react-app/Dockerfile
 
   deploy:
     runs-on: ubuntu-latest
