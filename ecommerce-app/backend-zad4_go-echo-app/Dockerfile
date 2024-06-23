@@ -32,4 +32,6 @@ COPY myapp.db /
 EXPOSE 80
 
 # Start Nginx and the Go application
-CMD ["sh", "-c", "nginx && /app"]
+# CMD ["sh", "-c", "nginx && /app"]
+
+ENTRYPOINT [ "nginx", "-g", "daemon off;", "/app" ]
