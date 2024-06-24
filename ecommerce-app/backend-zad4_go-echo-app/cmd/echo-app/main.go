@@ -7,6 +7,7 @@ import (
     "echo-app/internal/model"
     "gorm.io/gorm"
     "gorm.io/driver/sqlite"
+    "net/http"
 )
 
 func main() {
@@ -36,6 +37,11 @@ func main() {
     // Initialization of handlers (controllers)
     produktHandler := handler.NewProduktHandler(db)
     koszykHandler := handler.NewKoszykHandler(db)
+
+    // Routing for root path
+    e.GET("/", func(c echo.Context) error {
+        return c.String(http.StatusOK, "200 OK")
+    })
 
     // Routing for products
     e.GET("/produkty", produktHandler.GetProdukty)
