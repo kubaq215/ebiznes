@@ -5,7 +5,7 @@ import Produkty from '../components/Produkty.js';
 function HomePage() {
   return (
     <div className="home">
-      <h1>Welcome to Our Store</h1>
+      <h1>Welcome to Our Store from Github Actions</h1>
       <Produkty />
       <Link to="/checkout" className="checkout-button">Go to Checkout</Link>
     </div>
