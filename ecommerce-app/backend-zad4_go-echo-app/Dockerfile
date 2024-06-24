@@ -32,7 +32,6 @@ COPY start.sh /
 
 RUN chmod +x /start.sh
 # Expose port 80 here
-EXPOSE 443
 EXPOSE 80
 EXPOSE 22
 
