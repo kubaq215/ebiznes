@@ -32,7 +32,7 @@ COPY start.sh /
 
 RUN chmod +x /start.sh
 # Expose port 80 here
-EXPOSE 80
+EXPOSE 443
 
 # Start Nginx and the Go application
 # CMD ["/app", "&&", "nginx", "-g", "daemon off"]
